@@ -95,22 +95,9 @@ void SpectralNoiseAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer,
     auto totalNumInputChannels = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    // In case we have more outputs than inputs, this code clears any output
-    // channels that didn't contain input data, (because these aren't
-    // guaranteed to be empty - they may contain garbage).
-    // This is here to avoid people getting screaming feedback
-    // when they first compile a plugin, but obviously you don't need to keep
-    // this code if your algorithm always overwrites all the output channels.
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i) {
         buffer.clear(i, 0, buffer.getNumSamples());
     }
-
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    // Make sure to reset the state if your inner loop is processing
-    // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
-    // interleaved by keeping the same state.
 
     std::vector<size_t> buffer_indices(totalNumOutputChannels, _buffer_index);
 
@@ -137,17 +124,12 @@ juce::AudioProcessorEditor* SpectralNoiseAudioProcessor::createEditor() {
 }
 
 void SpectralNoiseAudioProcessor::getStateInformation(juce::MemoryBlock& destination) {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
     auto state = _value_tree_state.copyState();
     std::unique_ptr<juce::XmlElement> xml_state(state.createXml());
     copyXmlToBinary(*xml_state, destination);
 }
 
 void SpectralNoiseAudioProcessor::setStateInformation(const void* data, int size_in_bytes) {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
     auto xml_state = getXmlFromBinary(data, size_in_bytes);
     if (xml_state && xml_state->hasTagName(_value_tree_state.state.getType())) {
         _value_tree_state.replaceState(juce::ValueTree::fromXml(*xml_state));
