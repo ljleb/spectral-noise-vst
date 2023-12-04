@@ -93,16 +93,16 @@ void SpectralNoiseAudioProcessor::prepareToPlay(double sample_rate, int samples_
     fft.performRealOnlyInverseTransform(fft_buffer.data());
     _buffer.resize(buffer_size);
     std::copy_n(fft_buffer.begin(), _buffer.size(), _buffer.begin());
-    for (size_t i = 0; i < _buffer.size(); ++i) {
-        auto const x = double(i) / (_buffer.size() - 1);
-        auto const f_x = (std::cos(M_PI * (2.0 * x - 1.0)) + 1.0) / 2.0;
-        auto const g_x = 0; // (std::cos(M_PI * (4.0 * x - 1.0)) + 1.0) / 8.0;
-        _buffer[i] *= f_x + g_x;
-    }
-    decltype(_buffer) buffer_copy(_buffer);
-    for (size_t i = 0; i < _buffer.size(); ++i) {
-        _buffer[i] += buffer_copy[(i + _buffer.size() / 2) % _buffer.size()];
-    }
+    //for (size_t i = 0; i < _buffer.size(); ++i) {
+    //    auto const x = double(i) / (_buffer.size() - 1);
+    //    auto const f_x = (std::cos(M_PI * (2.0 * x - 1.0)) + 1.0) / 2.0;
+    //    auto const g_x = 0; // (std::cos(M_PI * (4.0 * x - 1.0)) + 1.0) / 8.0;
+    //    _buffer[i] *= f_x + g_x;
+    //}
+    //decltype(_buffer) buffer_copy(_buffer);
+    //for (size_t i = 0; i < _buffer.size(); ++i) {
+    //    _buffer[i] += buffer_copy[(i + _buffer.size() / 2) % _buffer.size()];
+    //}
 
     _buffer_index = 0;
 }
@@ -136,19 +136,27 @@ void SpectralNoiseAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer,
     auto const output_channels = getTotalNumOutputChannels();
     auto const num_samples = buffer.getNumSamples();
 
+    size_t const grainSize = num_samples / 10;
+    size_t const overlap = grainSize / 2;
+
     std::mt19937 rng(std::random_device{}());
-    std::uniform_int_distribution<size_t> index_distribution(0, _buffer.size() - 1);
+    std::uniform_int_distribution<size_t> index_distribution(0, _buffer.size() - grainSize);
 
     for (size_t channel = 0; channel < output_channels; ++channel) {
         auto* channelData = buffer.getWritePointer(channel);
-        auto const copy_size = std::min<size_t>(num_samples, _buffer.size() - _buffer_index);
 
-        for (size_t i = 0; i < buffer.getNumSamples(); ++i) {
-            channelData[i] = _buffer[index_distribution(rng)];
+        for (size_t pos = 0; pos < num_samples; pos += grainSize - overlap) {
+            size_t start = index_distribution(rng);
+            for (size_t i = 0; i < grainSize; ++i) {
+                if (pos + i > num_samples) break;
+                
+                auto const x = double(i) / (grainSize - 1);
+                channelData[pos + i] = _buffer[start + i] * (std::cos(M_PI * (2.0 * x - 1.0)) + 1.0) / 2.0;
+            }
         }
     }
 
-    _buffer_index = (_buffer_index + num_samples) % _buffer.size();
+    //_buffer_index = (_buffer_index + num_samples) % _buffer.size();
 }
 
 bool SpectralNoiseAudioProcessor::hasEditor() const {
