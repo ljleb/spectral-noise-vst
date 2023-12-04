@@ -14,14 +14,10 @@ SpectralNoiseAudioProcessor::SpectralNoiseAudioProcessor():
             #endif
         ),
     #endif
-    _buffer(2048, 0.0),
     _value_tree_state {
         *this, nullptr, "PARAMETERS", {}
     }
 {
-    for (size_t i = 0; i < _buffer.size(); ++i) {
-        _buffer[i] = float(std::rand()) / RAND_MAX - 0.5;
-    }
 }
 
 SpectralNoiseAudioProcessor::~SpectralNoiseAudioProcessor()
@@ -61,9 +57,14 @@ const juce::String SpectralNoiseAudioProcessor::getProgramName(int index) {
     return {};
 }
 
-void SpectralNoiseAudioProcessor::changeProgramName(int index, const juce::String& newName) {}
+void SpectralNoiseAudioProcessor::changeProgramName(int index, const juce::String& new_name) {}
 
-void SpectralNoiseAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock) {
+void SpectralNoiseAudioProcessor::prepareToPlay(double sample_rate, int samples_per_block) {
+    //auto const new_size = std::max<size_t>(samples_per_block, sample_rate * 2 / 10);
+    _buffer.resize(std::ceil(sample_rate), 0.0);
+    for (size_t i = 0; i < _buffer.size(); ++i) {
+        _buffer[i] = float(std::rand()) / RAND_MAX - 0.5;
+    }
     _buffer_index = 0;
 }
 
@@ -92,27 +93,18 @@ bool SpectralNoiseAudioProcessor::isBusesLayoutSupported(const BusesLayout& layo
 
 void SpectralNoiseAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midi_messages) {
     juce::ScopedNoDenormals noDenormals;
-    auto totalNumInputChannels = getTotalNumInputChannels();
-    auto totalNumOutputChannels = getTotalNumOutputChannels();
+    auto const input_channels = getTotalNumInputChannels();
+    auto const output_channels = getTotalNumOutputChannels();
+    auto const num_samples = buffer.getNumSamples();
 
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i) {
-        buffer.clear(i, 0, buffer.getNumSamples());
-    }
-
-    std::vector<size_t> buffer_indices(totalNumOutputChannels, _buffer_index);
-
-    for (int channel = 0; channel < totalNumOutputChannels; ++channel)
-    {
+    for (size_t channel = 0; channel < output_channels; ++channel) {
         auto* channelData = buffer.getWritePointer(channel);
-        auto& buffer_index = buffer_indices[channel];
-        size_t const num_samples = buffer.getNumSamples();
-        size_t const copy_size = std::min(num_samples, _buffer.size() - buffer_index);
-        std::copy_n(_buffer.data() + buffer_index, copy_size, channelData);
-        buffer_index = (buffer_index + copy_size) % _buffer.size();
-        std::copy_n(_buffer.data(), num_samples - copy_size, channelData + copy_size);
+        auto const copy_size = std::min<size_t>(num_samples, _buffer.size() - _buffer_index);
+        std::copy_n(_buffer.data() + _buffer_index, copy_size, channelData);
+        std::copy_n(_buffer.data() + copy_size, num_samples - copy_size, channelData + copy_size);
     }
 
-    _buffer_index = buffer_indices[0];
+    _buffer_index = (_buffer_index + num_samples) % _buffer.size();
 }
 
 bool SpectralNoiseAudioProcessor::hasEditor() const {
