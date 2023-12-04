@@ -1,16 +1,8 @@
-/*
-  ==============================================================================
-
-    This file contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
-*/
-
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 #include <cmath>
+#include <cstdlib>
 
-//==============================================================================
 SpectralNoiseAudioProcessor::SpectralNoiseAudioProcessor():
     #ifndef JucePlugin_PreferredChannelConfigurations
         AudioProcessor (BusesProperties()
@@ -144,7 +136,6 @@ juce::AudioProcessorEditor* SpectralNoiseAudioProcessor::createEditor() {
     return new SpectralNoiseAudioProcessorEditor(*this, _value_tree_state);
 }
 
-//==============================================================================
 void SpectralNoiseAudioProcessor::getStateInformation(juce::MemoryBlock& destination) {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
@@ -163,7 +154,6 @@ void SpectralNoiseAudioProcessor::setStateInformation(const void* data, int size
     }
 }
 
-//==============================================================================
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter() {
     return new SpectralNoiseAudioProcessor();
 }
