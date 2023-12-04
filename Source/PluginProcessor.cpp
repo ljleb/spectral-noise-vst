@@ -1,7 +1,11 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 #include <cmath>
+#include <random>
+#include <functional>
 #include <cstdlib>
+
+#define M_PI 3.1415926535897932384626433832795028841971693993751058209
 
 SpectralNoiseAudioProcessor::SpectralNoiseAudioProcessor():
     #ifndef JucePlugin_PreferredChannelConfigurations
@@ -60,10 +64,46 @@ const juce::String SpectralNoiseAudioProcessor::getProgramName(int index) {
 void SpectralNoiseAudioProcessor::changeProgramName(int index, const juce::String& new_name) {}
 
 void SpectralNoiseAudioProcessor::prepareToPlay(double sample_rate, int samples_per_block) {
-    _buffer.resize(std::ceil(sample_rate), 0.0);
-    for (size_t i = 0; i < _buffer.size(); ++i) {
-        _buffer[i] = float(std::rand()) / RAND_MAX - 0.5;
+    size_t const buffer_size = size_t(std::ceil(sample_rate)) * 2;
+
+    juce::dsp::FFT fft(std::ceil(std::log2(buffer_size)));
+    std::vector<float> fft_buffer(fft.getSize() * 2);
+
+    std::mt19937 generator;
+    std::uniform_real_distribution<float> distribution(-1.0, 1.0);
+    std::generate(fft_buffer.begin(), fft_buffer.begin() + fft_buffer.size() / 2, std::bind(distribution, generator));
+
+    fft.performRealOnlyForwardTransform(fft_buffer.data());
+    for (size_t i = 0; i < fft_buffer.size() / 2; ++i) {
+        double const frequency = double(i) * sample_rate / double(buffer_size);
+        if (frequency < 20) {
+            fft_buffer[2 * i] = fft_buffer[2 * i + 1] = 0;
+        } else {
+            double const pivot_frequency = 20.0;
+            double const scaling = -4.5;
+
+            double const octaves_from_pivot = std::log2(frequency / pivot_frequency);
+            double const scaling_dB = scaling * octaves_from_pivot;
+            double const scaling_factor = std::pow(10.0, scaling_dB / 20.0);
+            fft_buffer[2 * i] *= scaling_factor;
+            fft_buffer[2 * i + 1] *= 0;
+        }
     }
+
+    fft.performRealOnlyInverseTransform(fft_buffer.data());
+    _buffer.resize(buffer_size);
+    std::copy_n(fft_buffer.begin(), _buffer.size(), _buffer.begin());
+    for (size_t i = 0; i < _buffer.size(); ++i) {
+        auto const x = double(i) / (_buffer.size() - 1);
+        auto const f_x = (std::cos(M_PI * (2.0 * x - 1.0)) + 1.0) / 2.0;
+        auto const g_x = 0; // (std::cos(M_PI * (4.0 * x - 1.0)) + 1.0) / 8.0;
+        _buffer[i] *= f_x + g_x;
+    }
+    decltype(_buffer) buffer_copy(_buffer);
+    for (size_t i = 0; i < _buffer.size(); ++i) {
+        _buffer[i] += buffer_copy[(i + _buffer.size() / 2) % _buffer.size()];
+    }
+
     _buffer_index = 0;
 }
 
@@ -96,11 +136,16 @@ void SpectralNoiseAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer,
     auto const output_channels = getTotalNumOutputChannels();
     auto const num_samples = buffer.getNumSamples();
 
+    std::mt19937 rng(std::random_device{}());
+    std::uniform_int_distribution<size_t> index_distribution(0, _buffer.size() - 1);
+
     for (size_t channel = 0; channel < output_channels; ++channel) {
         auto* channelData = buffer.getWritePointer(channel);
         auto const copy_size = std::min<size_t>(num_samples, _buffer.size() - _buffer_index);
-        std::copy_n(_buffer.data() + _buffer_index, copy_size, channelData);
-        std::copy_n(_buffer.data() + copy_size, num_samples - copy_size, channelData + copy_size);
+
+        for (size_t i = 0; i < buffer.getNumSamples(); ++i) {
+            channelData[i] = _buffer[index_distribution(rng)];
+        }
     }
 
     _buffer_index = (_buffer_index + num_samples) % _buffer.size();
