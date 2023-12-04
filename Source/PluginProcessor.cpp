@@ -60,7 +60,6 @@ const juce::String SpectralNoiseAudioProcessor::getProgramName(int index) {
 void SpectralNoiseAudioProcessor::changeProgramName(int index, const juce::String& new_name) {}
 
 void SpectralNoiseAudioProcessor::prepareToPlay(double sample_rate, int samples_per_block) {
-    //auto const new_size = std::max<size_t>(samples_per_block, sample_rate * 2 / 10);
     _buffer.resize(std::ceil(sample_rate), 0.0);
     for (size_t i = 0; i < _buffer.size(); ++i) {
         _buffer[i] = float(std::rand()) / RAND_MAX - 0.5;
