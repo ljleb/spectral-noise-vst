@@ -16,7 +16,6 @@
 class SpectralNoiseAudioProcessor  : public juce::AudioProcessor
 {
     std::vector<float> _buffer;
-    uint32_t _buffer_index;
     juce::AudioProcessorValueTreeState _value_tree_state;
 
 public:
