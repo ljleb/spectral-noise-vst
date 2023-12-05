@@ -63,21 +63,25 @@ const juce::String SpectralNoiseAudioProcessor::getProgramName(int index) {
 
 void SpectralNoiseAudioProcessor::changeProgramName(int index, const juce::String& new_name) {}
 
+double calculate_window_sample(double x) {
+    return (std::cos(M_PI*(2.0*x - 1.0)) + 1.0) / 2.0;
+}
+
 void SpectralNoiseAudioProcessor::prepareToPlay(double sample_rate, int samples_per_block) {
-    auto const buffer_size = size_t(std::ceil(sample_rate)) * 20;
+    auto const buffer_capacity = size_t(std::ceil(sample_rate));
     using BufferValueType = decltype(_buffer)::value_type;
 
-    juce::dsp::FFT fft(int(std::ceil(std::log2(buffer_size))));
+    juce::dsp::FFT fft(int(std::ceil(std::log2(buffer_capacity))));
     std::vector<float> fft_buffer(fft.getSize() * 2);
 
-    std::mt19937 generator;
+    std::mt19937 generator(std::random_device{}());
     std::uniform_real_distribution<BufferValueType> distribution(-1.0, 1.0);
     std::generate(fft_buffer.begin(), fft_buffer.end(), std::bind(distribution, generator));
 
-    fft.performRealOnlyForwardTransform(fft_buffer.data());
+    fft.performRealOnlyForwardTransform(&*fft_buffer.begin());
     for (size_t i = 0; i < fft_buffer.size() / 2; ++i) {
         auto& coefficient = reinterpret_cast<std::complex<BufferValueType>&>(fft_buffer[2*i]);
-        auto const frequency = double(i) * sample_rate / double(buffer_size);
+        auto const frequency = double(i) * sample_rate / double(buffer_capacity);
 
         if (frequency < 20) {
             coefficient = 0;
@@ -92,10 +96,41 @@ void SpectralNoiseAudioProcessor::prepareToPlay(double sample_rate, int samples_
         }
     }
 
-    fft.performRealOnlyInverseTransform(fft_buffer.data());
-    _buffer.resize(buffer_size);
+    fft.performRealOnlyInverseTransform(&*fft_buffer.data());
+    _buffer.resize(buffer_capacity);
     std::copy_n(fft_buffer.cbegin(), _buffer.size(), _buffer.begin());
+    
+    for (auto& sample : _buffer) {
+        sample = std::clamp(sample, -1.0f, 1.0f);
+    }
+
+    size_t const window_width = 2 * 64;
+    double max_similarity = 0.0;
+    size_t best_index = 0;
+    for (size_t i = 0; i < _buffer.size() - window_width; ++i) {
+        double similarity = 0.0;
+        for (size_t j = 0; j < window_width; ++j) {
+            auto const weight = calculate_window_sample(2.0 * double(j) / double(window_width - 1));
+            double const original_sample = _buffer[i + j];
+            double const window_sample = _buffer[(_buffer.size() - window_width / 2 + j) % _buffer.size()];
+            similarity += original_sample * window_sample * weight * 2.0 / window_width;
+        }
+        if (similarity > max_similarity) {
+            max_similarity = similarity;
+            best_index = i;
+        }
+    }
+
+    decltype(_buffer) const buffer_copy(_buffer.cbegin(), _buffer.cend());
+    for (size_t i = 0; i < window_width; ++i) {
+        auto const window = calculate_window_sample(double(i) / double(window_width - 1));
+        auto& original_sample = _buffer[(_buffer.size() - window_width / 2 + i) % _buffer.size()];
+        auto& window_sample = _buffer[(best_index + i) % _buffer.size()];
+        original_sample = (1 - window) * original_sample + window * window_sample;
+    }
+
     _buffer_index = 0;
+    _buffer_size = buffer_capacity;
 }
 
 void SpectralNoiseAudioProcessor::releaseResources() {}
@@ -125,16 +160,22 @@ void SpectralNoiseAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer,
     juce::ScopedNoDenormals noDenormals;
     auto const input_channels = getTotalNumInputChannels();
     auto const output_channels = getTotalNumOutputChannels();
+    auto const num_channels = std::max(input_channels, output_channels);
     auto const num_samples = buffer.getNumSamples();
 
     for (size_t channel = 0; channel < output_channels; ++channel) {
         auto* channel_data = buffer.getWritePointer(channel);
-        auto const copy_size = std::min<size_t>(num_samples, _buffer.size() - _buffer_index);
-        std::copy_n(_buffer.cbegin() + _buffer_index, copy_size, channel_data);
-        std::copy_n(_buffer.cbegin(), num_samples - copy_size, channel_data + copy_size);
+        size_t buffer_index = _buffer_index;
+        for (size_t i = 0; i < num_samples;) {
+            auto const copy_size = std::min<size_t>(num_samples - i, _buffer_size - buffer_index);
+            std::copy_n(_buffer.cbegin() + buffer_index, copy_size, channel_data + i);
+            buffer_index = (buffer_index + copy_size) % _buffer_size;
+
+            i += copy_size;
+        }
     }
 
-    _buffer_index = (_buffer_index + num_samples) % _buffer.size();
+    _buffer_index = (_buffer_index + num_samples) % _buffer_size;
 }
 
 bool SpectralNoiseAudioProcessor::hasEditor() const {

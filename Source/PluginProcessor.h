@@ -6,6 +6,7 @@ class SpectralNoiseAudioProcessor  : public juce::AudioProcessor
 {
     std::vector<float> _buffer;
     size_t _buffer_index;
+    size_t _buffer_size;
     juce::AudioProcessorValueTreeState _value_tree_state;
 
 public:
