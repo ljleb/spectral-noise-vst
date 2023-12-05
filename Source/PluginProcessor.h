@@ -1,21 +1,9 @@
-/*
-  ==============================================================================
-
-    This file contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
-*/
-
 #pragma once
 
 #include <JuceHeader.h>
 
-//==============================================================================
-/**
-*/
 class SpectralNoiseAudioProcessor  : public juce::AudioProcessor
 {
-    std::vector<float> _raw_buffer;
     std::vector<float> _buffer;
     size_t _buffer_index;
     juce::AudioProcessorValueTreeState _value_tree_state;

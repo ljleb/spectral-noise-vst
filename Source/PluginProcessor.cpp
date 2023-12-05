@@ -68,13 +68,12 @@ void SpectralNoiseAudioProcessor::prepareToPlay(double sample_rate, int samples_
     using BufferValueType = decltype(_buffer)::value_type;
 
     juce::dsp::FFT fft(int(std::ceil(std::log2(buffer_size))));
-    _raw_buffer.resize(fft.getSize() * 2);
+    std::vector<float> fft_buffer(fft.getSize() * 2);
 
     std::mt19937 generator;
     std::uniform_real_distribution<BufferValueType> distribution(-1.0, 1.0);
-    std::generate(_raw_buffer.begin(), _raw_buffer.end(), std::bind(distribution, generator));
+    std::generate(fft_buffer.begin(), fft_buffer.end(), std::bind(distribution, generator));
 
-    decltype(_raw_buffer) fft_buffer(_raw_buffer.cbegin(), _raw_buffer.cend());
     fft.performRealOnlyForwardTransform(fft_buffer.data());
     for (size_t i = 0; i < fft_buffer.size() / 2; ++i) {
         auto& coefficient = reinterpret_cast<std::complex<BufferValueType>&>(fft_buffer[2*i]);
@@ -95,17 +94,7 @@ void SpectralNoiseAudioProcessor::prepareToPlay(double sample_rate, int samples_
 
     fft.performRealOnlyInverseTransform(fft_buffer.data());
     _buffer.resize(buffer_size);
-    std::copy_n(fft_buffer.begin(), _buffer.size(), _buffer.begin());
-    //for (size_t i = 0; i < _buffer.size(); ++i) {
-    //    auto const x = double(i) / (_buffer.size() - 1);
-    //    auto const f_x = (std::cos(M_PI * (2.0 * x - 1.0)) + 1.0) / 2.0;
-    //    auto const g_x = 0; // (std::cos(M_PI * (4.0 * x - 1.0)) + 1.0) / 8.0;
-    //    _buffer[i] *= f_x + g_x;
-    //}
-    //decltype(_buffer) buffer_copy(_buffer);
-    //for (size_t i = 0; i < _buffer.size(); ++i) {
-    //    _buffer[i] += buffer_copy[(i + _buffer.size() / 2) % _buffer.size()];
-    //}
+    std::copy_n(fft_buffer.cbegin(), _buffer.size(), _buffer.begin());
     _buffer_index = 0;
 }
 
