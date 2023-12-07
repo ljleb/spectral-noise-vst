@@ -7,22 +7,34 @@
 
 #define M_PI 3.1415926535897932384626433832795028841971693993751058209
 
+juce::String const SpectralNoiseAudioProcessor::TILT_ID = "tilt";
+
 SpectralNoiseAudioProcessor::SpectralNoiseAudioProcessor():
     #ifndef JucePlugin_PreferredChannelConfigurations
         AudioProcessor (BusesProperties()
             #if ! JucePlugin_IsMidiEffect
                 #if ! JucePlugin_IsSynth
-                    .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
+                    .withInput("Input",  juce::AudioChannelSet::stereo(), true)
                 #endif
-                .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
+                .withOutput("Output", juce::AudioChannelSet::stereo(), true)
             #endif
         ),
     #endif
     _value_tree_state {
-        *this, nullptr, "PARAMETERS", {}
+        *this, nullptr, "PARAMETERS", {
+            std::make_unique<juce::AudioParameterFloat>(
+                TILT_ID,
+                "Tilt",
+                juce::NormalisableRange<float>(-10.f, 10.f, 0.0001f),
+                0.f),
+        }
     },
+    _tilt(_value_tree_state.getRawParameterValue(TILT_ID)),
+    _buffer_size(0),
     _buffer_index(0)
-{}
+{
+    _value_tree_state.getParameter(TILT_ID)->addListener(this);
+}
 
 SpectralNoiseAudioProcessor::~SpectralNoiseAudioProcessor()
 {}
@@ -68,13 +80,13 @@ double calculate_window_sample(double x) {
 }
 
 void SpectralNoiseAudioProcessor::prepareToPlay(double sample_rate, int samples_per_block) {
-    auto const buffer_capacity = size_t(std::ceil(sample_rate));
+    auto const buffer_capacity = size_t(std::ceil(sample_rate)); // buffer size param
     using BufferValueType = decltype(_buffer)::value_type;
 
     juce::dsp::FFT fft(int(std::ceil(std::log2(buffer_capacity))));
     std::vector<float> fft_buffer(fft.getSize() * 2);
 
-    std::mt19937 generator(std::random_device{}());
+    std::mt19937 generator(std::random_device{}()); // seed param
     std::uniform_real_distribution<BufferValueType> distribution(-1.0, 1.0);
     std::generate(fft_buffer.begin(), fft_buffer.end(), std::bind(distribution, generator));
 
@@ -86,17 +98,17 @@ void SpectralNoiseAudioProcessor::prepareToPlay(double sample_rate, int samples_
         if (frequency < 20) {
             coefficient = 0;
         } else {
-            auto const pivot_frequency = 1000.0;
-            auto const scaling_dbo = -4.5;
+            auto const pivot_frequency = 1000.0; // pivot param
+            auto const tilt = _tilt->load();
 
             auto const octaves_from_pivot = std::log2(frequency / pivot_frequency);
-            auto const scaling_db = scaling_dbo * octaves_from_pivot;
+            auto const scaling_db = tilt * octaves_from_pivot;
             auto const scaling_factor = std::pow(10.0, scaling_db / 20.0);
             coefficient *= float(scaling_factor);
         }
     }
 
-    fft.performRealOnlyInverseTransform(&*fft_buffer.data());
+    fft.performRealOnlyInverseTransform(&*fft_buffer.begin());
     _buffer.resize(buffer_capacity);
     std::copy_n(fft_buffer.cbegin(), _buffer.size(), _buffer.begin());
     
@@ -104,7 +116,25 @@ void SpectralNoiseAudioProcessor::prepareToPlay(double sample_rate, int samples_
         sample = std::clamp(sample, -1.0f, 1.0f);
     }
 
-    size_t const window_width = 2 * 64;
+    size_t const window_width = 2 * 64; // window width param
+    auto const best_window_start = find_most_natural_subwindow(window_width);
+
+    // apply subwindow evenly at the boundary
+    decltype(_buffer) const buffer_copy(_buffer.cbegin(), _buffer.cend());
+    for (size_t i = 0; i < window_width; ++i) {
+        auto const window = calculate_window_sample(double(i) / double(window_width - 1));
+        auto& original_sample = _buffer[(_buffer.size() - window_width / 2 + i) % _buffer.size()];
+        auto& window_sample = _buffer[(best_window_start + i) % _buffer.size()];
+        original_sample = (1 - window) * original_sample + window * window_sample;
+    }
+
+    _buffer_index = 0;
+    _buffer_size = buffer_capacity;
+}
+
+void SpectralNoiseAudioProcessor::releaseResources() {}
+
+size_t SpectralNoiseAudioProcessor::find_most_natural_subwindow(size_t window_width) {
     double max_similarity = 0.0;
     size_t best_index = 0;
     for (size_t i = 0; i < _buffer.size() - window_width; ++i) {
@@ -121,19 +151,8 @@ void SpectralNoiseAudioProcessor::prepareToPlay(double sample_rate, int samples_
         }
     }
 
-    decltype(_buffer) const buffer_copy(_buffer.cbegin(), _buffer.cend());
-    for (size_t i = 0; i < window_width; ++i) {
-        auto const window = calculate_window_sample(double(i) / double(window_width - 1));
-        auto& original_sample = _buffer[(_buffer.size() - window_width / 2 + i) % _buffer.size()];
-        auto& window_sample = _buffer[(best_index + i) % _buffer.size()];
-        original_sample = (1 - window) * original_sample + window * window_sample;
-    }
-
-    _buffer_index = 0;
-    _buffer_size = buffer_capacity;
+    return best_index;
 }
-
-void SpectralNoiseAudioProcessor::releaseResources() {}
 
 #ifndef JucePlugin_PreferredChannelConfigurations
 bool SpectralNoiseAudioProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const {
@@ -167,6 +186,9 @@ void SpectralNoiseAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer,
         auto* channel_data = buffer.getWritePointer(channel);
         size_t buffer_index = _buffer_index;
         for (size_t i = 0; i < num_samples;) {
+            // adjust _buffer_size to play tones
+            // use multiple voices with slightly different pitches for unison
+            // use many _buffer_indices for stereo width
             auto const copy_size = std::min<size_t>(num_samples - i, _buffer_size - buffer_index);
             std::copy_n(_buffer.cbegin() + buffer_index, copy_size, channel_data + i);
             buffer_index = (buffer_index + copy_size) % _buffer_size;
@@ -197,6 +219,12 @@ void SpectralNoiseAudioProcessor::setStateInformation(const void* data, int size
     if (xml_state && xml_state->hasTagName(_value_tree_state.state.getType())) {
         _value_tree_state.replaceState(juce::ValueTree::fromXml(*xml_state));
     }
+}
+
+void SpectralNoiseAudioProcessor::parameterValueChanged(int parameter_id, float value) {}
+
+void SpectralNoiseAudioProcessor::parameterGestureChanged(int parameter_id, bool gesture_is_starting) {
+    prepareToPlay(double(_buffer.size()), -1);
 }
 
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter() {

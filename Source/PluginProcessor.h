@@ -2,19 +2,23 @@
 
 #include <JuceHeader.h>
 
-class SpectralNoiseAudioProcessor  : public juce::AudioProcessor
-{
+class SpectralNoiseAudioProcessor  : public juce::AudioProcessor, public juce::AudioProcessorParameter::Listener {
     std::vector<float> _buffer;
     size_t _buffer_index;
     size_t _buffer_size;
+
     juce::AudioProcessorValueTreeState _value_tree_state;
+    std::atomic<float>* _tilt;
 
 public:
+    static juce::String const TILT_ID;
+
     SpectralNoiseAudioProcessor();
     ~SpectralNoiseAudioProcessor() override;
 
     void prepareToPlay(double, int) override;
     void releaseResources() override;
+    size_t find_most_natural_subwindow(size_t width);
 
    #ifndef JucePlugin_PreferredChannelConfigurations
     bool isBusesLayoutSupported(const BusesLayout&) const override;
@@ -40,6 +44,9 @@ public:
     void getStateInformation(juce::MemoryBlock&) override;
     void setStateInformation(const void*, int) override;
 
+    void parameterValueChanged(int, float) override;
+    void parameterGestureChanged(int, bool) override;
+
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpectralNoiseAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SpectralNoiseAudioProcessor)
 };
