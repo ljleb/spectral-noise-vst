@@ -77,6 +77,9 @@ void SpectralNoiseSampler::resample_noise() {
 }
 
 float SpectralNoiseSampler::next_sample() {
+    if (_buffer.empty()) {
+        return 0;
+    }
     if (_index >= _buffer.size()) {
         resample_noise();
     }

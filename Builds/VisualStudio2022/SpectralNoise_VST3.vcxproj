@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<Project DefaultTargets="Build"
-         ToolsVersion="17.0"
-         xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -16,29 +13,25 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A9A2CB24-E42E-24AC-21BC-7F046913C769}</ProjectGuid>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"
-                 Label="Configuration">
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <WholeProgramOptimization>false</WholeProgramOptimization>
     <PlatformToolset>v143</PlatformToolset>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'"
-                 Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <PlatformToolset>v143</PlatformToolset>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
-  <ImportGroup Label="ExtensionSettings"/>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
   <ImportGroup Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"
-            Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')"
-            Label="LocalAppDataPlatform"/>
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
@@ -64,13 +57,13 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <HeaderFileName/>
+      <HeaderFileName />
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <AdditionalIncludeDirectories>D:\Program Files\JUCE\modules\juce_audio_processors\format_types\VST3_SDK;..\..\JuceLibraryCode;D:\Program Files\JUCE\modules;Source\fftw-3.3\api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCE_PROJUCER_VERSION=0x80007;JUCE_MODULE_AVAILABLE_juce_audio_basics=1;JUCE_MODULE_AVAILABLE_juce_audio_devices=1;JUCE_MODULE_AVAILABLE_juce_audio_formats=1;JUCE_MODULE_AVAILABLE_juce_audio_plugin_client=1;JUCE_MODULE_AVAILABLE_juce_audio_processors=1;JUCE_MODULE_AVAILABLE_juce_audio_utils=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_dsp=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_VST3_CAN_REPLACE_VST2=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;JucePlugin_Enable_IAA=0;JucePlugin_Enable_ARA=0;JucePlugin_Name=&quot;SpectralNoise&quot;;JucePlugin_Desc=&quot;SpectralNoise&quot;;JucePlugin_Manufacturer=&quot;abstrack&quot;;JucePlugin_ManufacturerWebsite=&quot;www.yourcompany.com&quot;;JucePlugin_ManufacturerEmail=&quot;&quot;;JucePlugin_ManufacturerCode=0x4d616e75;JucePlugin_PluginCode=0x4a316463;JucePlugin_IsSynth=1;JucePlugin_WantsMidiInput=1;JucePlugin_ProducesMidiOutput=0;JucePlugin_IsMidiEffect=0;JucePlugin_EditorRequiresKeyboardFocus=0;JucePlugin_Version=1.0.0;JucePlugin_VersionCode=0x10000;JucePlugin_VersionString=&quot;1.0.0&quot;;JucePlugin_VSTUniqueID=JucePlugin_PluginCode;JucePlugin_VSTCategory=kPlugCategSynth;JucePlugin_Vst3Category=&quot;Instrument|Synth&quot;;JucePlugin_AUMainType='augn';JucePlugin_AUSubType=JucePlugin_PluginCode;JucePlugin_AUExportPrefix=SpectralNoiseAU;JucePlugin_AUExportPrefixQuoted=&quot;SpectralNoiseAU&quot;;JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_CFBundleIdentifier=com.yourcompany.SpectralNoise;JucePlugin_AAXIdentifier=com.yourcompany.SpectralNoise;JucePlugin_AAXManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_AAXProductId=JucePlugin_PluginCode;JucePlugin_AAXCategory=2048;JucePlugin_AAXDisableBypass=0;JucePlugin_AAXDisableMultiMono=0;JucePlugin_IAAType=0x61757269;JucePlugin_IAASubType=JucePlugin_PluginCode;JucePlugin_IAAName=&quot;abstrack: SpectralNoise&quot;;JucePlugin_VSTNumMidiInputs=16;JucePlugin_VSTNumMidiOutputs=16;JucePlugin_ARAContentTypes=0;JucePlugin_ARATransformationFlags=0;JucePlugin_ARAFactoryID=&quot;com.yourcompany.SpectralNoise.factory&quot;;JucePlugin_ARADocumentArchiveID=&quot;com.yourcompany.SpectralNoise.aradocumentarchive.1.0.0&quot;;JucePlugin_ARACompatibleArchiveIDs=&quot;&quot;;JUCE_STANDALONE_APPLICATION=JucePlugin_Build_Standalone;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=1.0.0;JUCE_APP_VERSION_HEX=0x10000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCE_PROJUCER_VERSION=0x80007;JUCE_MODULE_AVAILABLE_juce_audio_basics=1;JUCE_MODULE_AVAILABLE_juce_audio_devices=1;JUCE_MODULE_AVAILABLE_juce_audio_formats=1;JUCE_MODULE_AVAILABLE_juce_audio_plugin_client=1;JUCE_MODULE_AVAILABLE_juce_audio_processors=1;JUCE_MODULE_AVAILABLE_juce_audio_utils=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_dsp=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_VST3_CAN_REPLACE_VST2=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;JucePlugin_Enable_IAA=0;JucePlugin_Enable_ARA=0;JucePlugin_Name="SpectralNoise";JucePlugin_Desc="SpectralNoise";JucePlugin_Manufacturer="abstrack";JucePlugin_ManufacturerWebsite="www.yourcompany.com";JucePlugin_ManufacturerEmail="";JucePlugin_ManufacturerCode=0x4d616e75;JucePlugin_PluginCode=0x4a316463;JucePlugin_IsSynth=1;JucePlugin_WantsMidiInput=1;JucePlugin_ProducesMidiOutput=0;JucePlugin_IsMidiEffect=0;JucePlugin_EditorRequiresKeyboardFocus=0;JucePlugin_Version=1.0.0;JucePlugin_VersionCode=0x10000;JucePlugin_VersionString="1.0.0";JucePlugin_VSTUniqueID=JucePlugin_PluginCode;JucePlugin_VSTCategory=kPlugCategSynth;JucePlugin_Vst3Category="Instrument|Synth";JucePlugin_AUMainType='augn';JucePlugin_AUSubType=JucePlugin_PluginCode;JucePlugin_AUExportPrefix=SpectralNoiseAU;JucePlugin_AUExportPrefixQuoted="SpectralNoiseAU";JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_CFBundleIdentifier=com.yourcompany.SpectralNoise;JucePlugin_AAXIdentifier=com.yourcompany.SpectralNoise;JucePlugin_AAXManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_AAXProductId=JucePlugin_PluginCode;JucePlugin_AAXCategory=2048;JucePlugin_AAXDisableBypass=0;JucePlugin_AAXDisableMultiMono=0;JucePlugin_IAAType=0x61757269;JucePlugin_IAASubType=JucePlugin_PluginCode;JucePlugin_IAAName="abstrack: SpectralNoise";JucePlugin_VSTNumMidiInputs=16;JucePlugin_VSTNumMidiOutputs=16;JucePlugin_ARAContentTypes=0;JucePlugin_ARATransformationFlags=0;JucePlugin_ARAFactoryID="com.yourcompany.SpectralNoise.factory";JucePlugin_ARADocumentArchiveID="com.yourcompany.SpectralNoise.aradocumentarchive.1.0.0";JucePlugin_ARACompatibleArchiveIDs="";JUCE_STANDALONE_APPLICATION=JucePlugin_Build_Standalone;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=1.0.0;JUCE_APP_VERSION_HEX=0x10000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -81,10 +74,11 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>D:\Program Files\JUCE\modules\juce_audio_processors\format_types\VST3_SDK;..\..\JuceLibraryCode;D:\Program Files\JUCE\modules;Source\fftw-3.3\api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCE_PROJUCER_VERSION=0x80007;JUCE_MODULE_AVAILABLE_juce_audio_basics=1;JUCE_MODULE_AVAILABLE_juce_audio_devices=1;JUCE_MODULE_AVAILABLE_juce_audio_formats=1;JUCE_MODULE_AVAILABLE_juce_audio_plugin_client=1;JUCE_MODULE_AVAILABLE_juce_audio_processors=1;JUCE_MODULE_AVAILABLE_juce_audio_utils=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_dsp=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_VST3_CAN_REPLACE_VST2=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;JucePlugin_Enable_IAA=0;JucePlugin_Enable_ARA=0;JucePlugin_Name=\&quot;SpectralNoise\&quot;;JucePlugin_Desc=\&quot;SpectralNoise\&quot;;JucePlugin_Manufacturer=\&quot;abstrack\&quot;;JucePlugin_ManufacturerWebsite=\&quot;www.yourcompany.com\&quot;;JucePlugin_ManufacturerEmail=\&quot;\&quot;;JucePlugin_ManufacturerCode=0x4d616e75;JucePlugin_PluginCode=0x4a316463;JucePlugin_IsSynth=1;JucePlugin_WantsMidiInput=1;JucePlugin_ProducesMidiOutput=0;JucePlugin_IsMidiEffect=0;JucePlugin_EditorRequiresKeyboardFocus=0;JucePlugin_Version=1.0.0;JucePlugin_VersionCode=0x10000;JucePlugin_VersionString=\&quot;1.0.0\&quot;;JucePlugin_VSTUniqueID=JucePlugin_PluginCode;JucePlugin_VSTCategory=kPlugCategSynth;JucePlugin_Vst3Category=\&quot;Instrument|Synth\&quot;;JucePlugin_AUMainType='augn';JucePlugin_AUSubType=JucePlugin_PluginCode;JucePlugin_AUExportPrefix=SpectralNoiseAU;JucePlugin_AUExportPrefixQuoted=\&quot;SpectralNoiseAU\&quot;;JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_CFBundleIdentifier=com.yourcompany.SpectralNoise;JucePlugin_AAXIdentifier=com.yourcompany.SpectralNoise;JucePlugin_AAXManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_AAXProductId=JucePlugin_PluginCode;JucePlugin_AAXCategory=2048;JucePlugin_AAXDisableBypass=0;JucePlugin_AAXDisableMultiMono=0;JucePlugin_IAAType=0x61757269;JucePlugin_IAASubType=JucePlugin_PluginCode;JucePlugin_IAAName=\&quot;abstrack: SpectralNoise\&quot;;JucePlugin_VSTNumMidiInputs=16;JucePlugin_VSTNumMidiOutputs=16;JucePlugin_ARAContentTypes=0;JucePlugin_ARATransformationFlags=0;JucePlugin_ARAFactoryID=\&quot;com.yourcompany.SpectralNoise.factory\&quot;;JucePlugin_ARADocumentArchiveID=\&quot;com.yourcompany.SpectralNoise.aradocumentarchive.1.0.0\&quot;;JucePlugin_ARACompatibleArchiveIDs=\&quot;\&quot;;JUCE_STANDALONE_APPLICATION=JucePlugin_Build_Standalone;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=1.0.0;JUCE_APP_VERSION_HEX=0x10000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCE_PROJUCER_VERSION=0x80007;JUCE_MODULE_AVAILABLE_juce_audio_basics=1;JUCE_MODULE_AVAILABLE_juce_audio_devices=1;JUCE_MODULE_AVAILABLE_juce_audio_formats=1;JUCE_MODULE_AVAILABLE_juce_audio_plugin_client=1;JUCE_MODULE_AVAILABLE_juce_audio_processors=1;JUCE_MODULE_AVAILABLE_juce_audio_utils=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_dsp=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_VST3_CAN_REPLACE_VST2=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;JucePlugin_Enable_IAA=0;JucePlugin_Enable_ARA=0;JucePlugin_Name=\"SpectralNoise\";JucePlugin_Desc=\"SpectralNoise\";JucePlugin_Manufacturer=\"abstrack\";JucePlugin_ManufacturerWebsite=\"www.yourcompany.com\";JucePlugin_ManufacturerEmail=\"\";JucePlugin_ManufacturerCode=0x4d616e75;JucePlugin_PluginCode=0x4a316463;JucePlugin_IsSynth=1;JucePlugin_WantsMidiInput=1;JucePlugin_ProducesMidiOutput=0;JucePlugin_IsMidiEffect=0;JucePlugin_EditorRequiresKeyboardFocus=0;JucePlugin_Version=1.0.0;JucePlugin_VersionCode=0x10000;JucePlugin_VersionString=\"1.0.0\";JucePlugin_VSTUniqueID=JucePlugin_PluginCode;JucePlugin_VSTCategory=kPlugCategSynth;JucePlugin_Vst3Category=\"Instrument|Synth\";JucePlugin_AUMainType='augn';JucePlugin_AUSubType=JucePlugin_PluginCode;JucePlugin_AUExportPrefix=SpectralNoiseAU;JucePlugin_AUExportPrefixQuoted=\"SpectralNoiseAU\";JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_CFBundleIdentifier=com.yourcompany.SpectralNoise;JucePlugin_AAXIdentifier=com.yourcompany.SpectralNoise;JucePlugin_AAXManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_AAXProductId=JucePlugin_PluginCode;JucePlugin_AAXCategory=2048;JucePlugin_AAXDisableBypass=0;JucePlugin_AAXDisableMultiMono=0;JucePlugin_IAAType=0x61757269;JucePlugin_IAASubType=JucePlugin_PluginCode;JucePlugin_IAAName=\"abstrack: SpectralNoise\";JucePlugin_VSTNumMidiInputs=16;JucePlugin_VSTNumMidiOutputs=16;JucePlugin_ARAContentTypes=0;JucePlugin_ARATransformationFlags=0;JucePlugin_ARAFactoryID=\"com.yourcompany.SpectralNoise.factory\";JucePlugin_ARADocumentArchiveID=\"com.yourcompany.SpectralNoise.aradocumentarchive.1.0.0\";JucePlugin_ARACompatibleArchiveIDs=\"\";JUCE_STANDALONE_APPLICATION=JucePlugin_Build_Standalone;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=1.0.0;JUCE_APP_VERSION_HEX=0x10000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
       <OutputFile>$(OutDir)\SpectralNoise.dll</OutputFile>
@@ -104,31 +98,31 @@
       <AdditionalDependencies>SpectralNoise.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <PreBuildEvent>
-      <Command>if &quot;$(PROCESSOR_ARCHITECTURE)&quot; == &quot;x86&quot; if defined PROCESSOR_ARCHITEW6432 (
-    echo : Warning: Toolchain configuration issue! You are using a 32-bit toolchain to compile a 64-bit target on a 64-bit system. This may cause problems with the build system. To resolve this, use the x64 version of MSBuild. You can invoke it directly at: &quot;&lt;VisualStudioPathHere&gt;/MSBuild/Current/Bin/amd64/MSBuild.exe&quot; Or, use the &quot;x64 Native Tools Command Prompt&quot; script.
+      <Command>if "$(PROCESSOR_ARCHITECTURE)" == "x86" if defined PROCESSOR_ARCHITEW6432 (
+    echo : Warning: Toolchain configuration issue! You are using a 32-bit toolchain to compile a 64-bit target on a 64-bit system. This may cause problems with the build system. To resolve this, use the x64 version of MSBuild. You can invoke it directly at: "&lt;VisualStudioPathHere&gt;/MSBuild/Current/Bin/amd64/MSBuild.exe" Or, use the "x64 Native Tools Command Prompt" script.
 )
-if not exist &quot;$(OutDir)\\SpectralNoise.vst3\&quot; (
-    del /s /q &quot;$(OutDir)\\SpectralNoise.vst3&quot;
-    mkdir &quot;$(OutDir)\\SpectralNoise.vst3&quot;
+if not exist "$(OutDir)\\SpectralNoise.vst3\" (
+    del /s /q "$(OutDir)\\SpectralNoise.vst3"
+    mkdir "$(OutDir)\\SpectralNoise.vst3"
 )
-if not exist &quot;$(OutDir)\\SpectralNoise.vst3\Contents\&quot; (
-    del /s /q &quot;$(OutDir)\\SpectralNoise.vst3\Contents&quot;
-    mkdir &quot;$(OutDir)\\SpectralNoise.vst3\Contents&quot;
+if not exist "$(OutDir)\\SpectralNoise.vst3\Contents\" (
+    del /s /q "$(OutDir)\\SpectralNoise.vst3\Contents"
+    mkdir "$(OutDir)\\SpectralNoise.vst3\Contents"
 )
-if not exist &quot;$(OutDir)\\SpectralNoise.vst3\Contents\x86_64-win\&quot; (
-    del /s /q &quot;$(OutDir)\\SpectralNoise.vst3\Contents\x86_64-win&quot;
-    mkdir &quot;$(OutDir)\\SpectralNoise.vst3\Contents\x86_64-win&quot;
+if not exist "$(OutDir)\\SpectralNoise.vst3\Contents\x86_64-win\" (
+    del /s /q "$(OutDir)\\SpectralNoise.vst3\Contents\x86_64-win"
+    mkdir "$(OutDir)\\SpectralNoise.vst3\Contents\x86_64-win"
 )
 </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy /Y &quot;$(OutDir)\SpectralNoise.dll&quot; &quot;$(OutDir)\SpectralNoise.vst3\Contents\x86_64-win\SpectralNoise.vst3&quot;
+      <Command>copy /Y "$(OutDir)\SpectralNoise.dll" "$(OutDir)\SpectralNoise.vst3\Contents\x86_64-win\SpectralNoise.vst3"
 set manifest_generated=0
-if &quot;$(PROCESSOR_ARCHITECTURE)&quot; == &quot;ARM64&quot; if &quot;$(Platform)&quot; == &quot;x64&quot; (
+if "$(PROCESSOR_ARCHITECTURE)" == "ARM64" if "$(Platform)" == "x64" (
     call :_generate_manifest
     set manifest_generated=1
 )
-if &quot;$(PROCESSOR_ARCHITECTURE)&quot; == &quot;AMD64&quot; if &quot;$(Platform)&quot; == &quot;x64&quot; (
+if "$(PROCESSOR_ARCHITECTURE)" == "AMD64" if "$(Platform)" == "x64" (
     call :_generate_manifest
     set manifest_generated=1
 )
@@ -137,13 +131,13 @@ if %manifest_generated% equ 0 (
 )
 goto :_continue
 :_generate_manifest
-if exist &quot;$(OutDir)/SpectralNoise.vst3\Contents\Resources\moduleinfo.json&quot; (
-    del /s /q &quot;$(OutDir)/SpectralNoise.vst3\Contents\Resources\moduleinfo.json&quot;
+if exist "$(OutDir)/SpectralNoise.vst3\Contents\Resources\moduleinfo.json" (
+    del /s /q "$(OutDir)/SpectralNoise.vst3\Contents\Resources\moduleinfo.json"
 )
-if not exist &quot;$(OutDir)/SpectralNoise.vst3\Contents\Resources\&quot; (
-    mkdir &quot;$(OutDir)/SpectralNoise.vst3\Contents\Resources\&quot;
+if not exist "$(OutDir)/SpectralNoise.vst3\Contents\Resources\" (
+    mkdir "$(OutDir)/SpectralNoise.vst3\Contents\Resources\"
 )
-&quot;$(SolutionDir)$(Platform)\$(Configuration)\VST3 Manifest Helper\juce_vst3_helper.exe&quot; -create -version &quot;1.0.0&quot; -path &quot;$(OutDir)/SpectralNoise.vst3&quot; -output &quot;$(OutDir)/SpectralNoise.vst3\Contents\Resources\moduleinfo.json&quot;
+"$(SolutionDir)$(Platform)\$(Configuration)\VST3 Manifest Helper\juce_vst3_helper.exe" -create -version "1.0.0" -path "$(OutDir)/SpectralNoise.vst3" -output "$(OutDir)/SpectralNoise.vst3\Contents\Resources\moduleinfo.json"
 if %ERRORLEVEL% equ 0 (
     echo : Info: Successfully generated a manifest for SpectralNoise
     goto :_continue
@@ -163,13 +157,13 @@ echo : Info: VST3 manifest generation is disabled for SpectralNoise because a AM
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <HeaderFileName/>
+      <HeaderFileName />
     </Midl>
     <ClCompile>
       <Optimization>Full</Optimization>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <AdditionalIncludeDirectories>D:\Program Files\JUCE\modules\juce_audio_processors\format_types\VST3_SDK;..\..\JuceLibraryCode;D:\Program Files\JUCE\modules;Source\fftw-3.3\api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCE_PROJUCER_VERSION=0x80007;JUCE_MODULE_AVAILABLE_juce_audio_basics=1;JUCE_MODULE_AVAILABLE_juce_audio_devices=1;JUCE_MODULE_AVAILABLE_juce_audio_formats=1;JUCE_MODULE_AVAILABLE_juce_audio_plugin_client=1;JUCE_MODULE_AVAILABLE_juce_audio_processors=1;JUCE_MODULE_AVAILABLE_juce_audio_utils=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_dsp=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_VST3_CAN_REPLACE_VST2=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;JucePlugin_Enable_IAA=0;JucePlugin_Enable_ARA=0;JucePlugin_Name=&quot;SpectralNoise&quot;;JucePlugin_Desc=&quot;SpectralNoise&quot;;JucePlugin_Manufacturer=&quot;abstrack&quot;;JucePlugin_ManufacturerWebsite=&quot;www.yourcompany.com&quot;;JucePlugin_ManufacturerEmail=&quot;&quot;;JucePlugin_ManufacturerCode=0x4d616e75;JucePlugin_PluginCode=0x4a316463;JucePlugin_IsSynth=1;JucePlugin_WantsMidiInput=1;JucePlugin_ProducesMidiOutput=0;JucePlugin_IsMidiEffect=0;JucePlugin_EditorRequiresKeyboardFocus=0;JucePlugin_Version=1.0.0;JucePlugin_VersionCode=0x10000;JucePlugin_VersionString=&quot;1.0.0&quot;;JucePlugin_VSTUniqueID=JucePlugin_PluginCode;JucePlugin_VSTCategory=kPlugCategSynth;JucePlugin_Vst3Category=&quot;Instrument|Synth&quot;;JucePlugin_AUMainType='augn';JucePlugin_AUSubType=JucePlugin_PluginCode;JucePlugin_AUExportPrefix=SpectralNoiseAU;JucePlugin_AUExportPrefixQuoted=&quot;SpectralNoiseAU&quot;;JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_CFBundleIdentifier=com.yourcompany.SpectralNoise;JucePlugin_AAXIdentifier=com.yourcompany.SpectralNoise;JucePlugin_AAXManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_AAXProductId=JucePlugin_PluginCode;JucePlugin_AAXCategory=2048;JucePlugin_AAXDisableBypass=0;JucePlugin_AAXDisableMultiMono=0;JucePlugin_IAAType=0x61757269;JucePlugin_IAASubType=JucePlugin_PluginCode;JucePlugin_IAAName=&quot;abstrack: SpectralNoise&quot;;JucePlugin_VSTNumMidiInputs=16;JucePlugin_VSTNumMidiOutputs=16;JucePlugin_ARAContentTypes=0;JucePlugin_ARATransformationFlags=0;JucePlugin_ARAFactoryID=&quot;com.yourcompany.SpectralNoise.factory&quot;;JucePlugin_ARADocumentArchiveID=&quot;com.yourcompany.SpectralNoise.aradocumentarchive.1.0.0&quot;;JucePlugin_ARACompatibleArchiveIDs=&quot;&quot;;JUCE_STANDALONE_APPLICATION=JucePlugin_Build_Standalone;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=1.0.0;JUCE_APP_VERSION_HEX=0x10000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCE_PROJUCER_VERSION=0x80007;JUCE_MODULE_AVAILABLE_juce_audio_basics=1;JUCE_MODULE_AVAILABLE_juce_audio_devices=1;JUCE_MODULE_AVAILABLE_juce_audio_formats=1;JUCE_MODULE_AVAILABLE_juce_audio_plugin_client=1;JUCE_MODULE_AVAILABLE_juce_audio_processors=1;JUCE_MODULE_AVAILABLE_juce_audio_utils=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_dsp=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_VST3_CAN_REPLACE_VST2=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;JucePlugin_Enable_IAA=0;JucePlugin_Enable_ARA=0;JucePlugin_Name="SpectralNoise";JucePlugin_Desc="SpectralNoise";JucePlugin_Manufacturer="abstrack";JucePlugin_ManufacturerWebsite="www.yourcompany.com";JucePlugin_ManufacturerEmail="";JucePlugin_ManufacturerCode=0x4d616e75;JucePlugin_PluginCode=0x4a316463;JucePlugin_IsSynth=1;JucePlugin_WantsMidiInput=1;JucePlugin_ProducesMidiOutput=0;JucePlugin_IsMidiEffect=0;JucePlugin_EditorRequiresKeyboardFocus=0;JucePlugin_Version=1.0.0;JucePlugin_VersionCode=0x10000;JucePlugin_VersionString="1.0.0";JucePlugin_VSTUniqueID=JucePlugin_PluginCode;JucePlugin_VSTCategory=kPlugCategSynth;JucePlugin_Vst3Category="Instrument|Synth";JucePlugin_AUMainType='augn';JucePlugin_AUSubType=JucePlugin_PluginCode;JucePlugin_AUExportPrefix=SpectralNoiseAU;JucePlugin_AUExportPrefixQuoted="SpectralNoiseAU";JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_CFBundleIdentifier=com.yourcompany.SpectralNoise;JucePlugin_AAXIdentifier=com.yourcompany.SpectralNoise;JucePlugin_AAXManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_AAXProductId=JucePlugin_PluginCode;JucePlugin_AAXCategory=2048;JucePlugin_AAXDisableBypass=0;JucePlugin_AAXDisableMultiMono=0;JucePlugin_IAAType=0x61757269;JucePlugin_IAASubType=JucePlugin_PluginCode;JucePlugin_IAAName="abstrack: SpectralNoise";JucePlugin_VSTNumMidiInputs=16;JucePlugin_VSTNumMidiOutputs=16;JucePlugin_ARAContentTypes=0;JucePlugin_ARATransformationFlags=0;JucePlugin_ARAFactoryID="com.yourcompany.SpectralNoise.factory";JucePlugin_ARADocumentArchiveID="com.yourcompany.SpectralNoise.aradocumentarchive.1.0.0";JucePlugin_ARACompatibleArchiveIDs="";JUCE_STANDALONE_APPLICATION=JucePlugin_Build_Standalone;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=1.0.0;JUCE_APP_VERSION_HEX=0x10000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -180,10 +174,11 @@ echo : Info: VST3 manifest generation is disabled for SpectralNoise because a AM
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>D:\Program Files\JUCE\modules\juce_audio_processors\format_types\VST3_SDK;..\..\JuceLibraryCode;D:\Program Files\JUCE\modules;Source\fftw-3.3\api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCE_PROJUCER_VERSION=0x80007;JUCE_MODULE_AVAILABLE_juce_audio_basics=1;JUCE_MODULE_AVAILABLE_juce_audio_devices=1;JUCE_MODULE_AVAILABLE_juce_audio_formats=1;JUCE_MODULE_AVAILABLE_juce_audio_plugin_client=1;JUCE_MODULE_AVAILABLE_juce_audio_processors=1;JUCE_MODULE_AVAILABLE_juce_audio_utils=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_dsp=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_VST3_CAN_REPLACE_VST2=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;JucePlugin_Enable_IAA=0;JucePlugin_Enable_ARA=0;JucePlugin_Name=\&quot;SpectralNoise\&quot;;JucePlugin_Desc=\&quot;SpectralNoise\&quot;;JucePlugin_Manufacturer=\&quot;abstrack\&quot;;JucePlugin_ManufacturerWebsite=\&quot;www.yourcompany.com\&quot;;JucePlugin_ManufacturerEmail=\&quot;\&quot;;JucePlugin_ManufacturerCode=0x4d616e75;JucePlugin_PluginCode=0x4a316463;JucePlugin_IsSynth=1;JucePlugin_WantsMidiInput=1;JucePlugin_ProducesMidiOutput=0;JucePlugin_IsMidiEffect=0;JucePlugin_EditorRequiresKeyboardFocus=0;JucePlugin_Version=1.0.0;JucePlugin_VersionCode=0x10000;JucePlugin_VersionString=\&quot;1.0.0\&quot;;JucePlugin_VSTUniqueID=JucePlugin_PluginCode;JucePlugin_VSTCategory=kPlugCategSynth;JucePlugin_Vst3Category=\&quot;Instrument|Synth\&quot;;JucePlugin_AUMainType='augn';JucePlugin_AUSubType=JucePlugin_PluginCode;JucePlugin_AUExportPrefix=SpectralNoiseAU;JucePlugin_AUExportPrefixQuoted=\&quot;SpectralNoiseAU\&quot;;JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_CFBundleIdentifier=com.yourcompany.SpectralNoise;JucePlugin_AAXIdentifier=com.yourcompany.SpectralNoise;JucePlugin_AAXManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_AAXProductId=JucePlugin_PluginCode;JucePlugin_AAXCategory=2048;JucePlugin_AAXDisableBypass=0;JucePlugin_AAXDisableMultiMono=0;JucePlugin_IAAType=0x61757269;JucePlugin_IAASubType=JucePlugin_PluginCode;JucePlugin_IAAName=\&quot;abstrack: SpectralNoise\&quot;;JucePlugin_VSTNumMidiInputs=16;JucePlugin_VSTNumMidiOutputs=16;JucePlugin_ARAContentTypes=0;JucePlugin_ARATransformationFlags=0;JucePlugin_ARAFactoryID=\&quot;com.yourcompany.SpectralNoise.factory\&quot;;JucePlugin_ARADocumentArchiveID=\&quot;com.yourcompany.SpectralNoise.aradocumentarchive.1.0.0\&quot;;JucePlugin_ARACompatibleArchiveIDs=\&quot;\&quot;;JUCE_STANDALONE_APPLICATION=JucePlugin_Build_Standalone;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=1.0.0;JUCE_APP_VERSION_HEX=0x10000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCE_PROJUCER_VERSION=0x80007;JUCE_MODULE_AVAILABLE_juce_audio_basics=1;JUCE_MODULE_AVAILABLE_juce_audio_devices=1;JUCE_MODULE_AVAILABLE_juce_audio_formats=1;JUCE_MODULE_AVAILABLE_juce_audio_plugin_client=1;JUCE_MODULE_AVAILABLE_juce_audio_processors=1;JUCE_MODULE_AVAILABLE_juce_audio_utils=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_dsp=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_VST3_CAN_REPLACE_VST2=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;JucePlugin_Enable_IAA=0;JucePlugin_Enable_ARA=0;JucePlugin_Name=\"SpectralNoise\";JucePlugin_Desc=\"SpectralNoise\";JucePlugin_Manufacturer=\"abstrack\";JucePlugin_ManufacturerWebsite=\"www.yourcompany.com\";JucePlugin_ManufacturerEmail=\"\";JucePlugin_ManufacturerCode=0x4d616e75;JucePlugin_PluginCode=0x4a316463;JucePlugin_IsSynth=1;JucePlugin_WantsMidiInput=1;JucePlugin_ProducesMidiOutput=0;JucePlugin_IsMidiEffect=0;JucePlugin_EditorRequiresKeyboardFocus=0;JucePlugin_Version=1.0.0;JucePlugin_VersionCode=0x10000;JucePlugin_VersionString=\"1.0.0\";JucePlugin_VSTUniqueID=JucePlugin_PluginCode;JucePlugin_VSTCategory=kPlugCategSynth;JucePlugin_Vst3Category=\"Instrument|Synth\";JucePlugin_AUMainType='augn';JucePlugin_AUSubType=JucePlugin_PluginCode;JucePlugin_AUExportPrefix=SpectralNoiseAU;JucePlugin_AUExportPrefixQuoted=\"SpectralNoiseAU\";JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_CFBundleIdentifier=com.yourcompany.SpectralNoise;JucePlugin_AAXIdentifier=com.yourcompany.SpectralNoise;JucePlugin_AAXManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_AAXProductId=JucePlugin_PluginCode;JucePlugin_AAXCategory=2048;JucePlugin_AAXDisableBypass=0;JucePlugin_AAXDisableMultiMono=0;JucePlugin_IAAType=0x61757269;JucePlugin_IAASubType=JucePlugin_PluginCode;JucePlugin_IAAName=\"abstrack: SpectralNoise\";JucePlugin_VSTNumMidiInputs=16;JucePlugin_VSTNumMidiOutputs=16;JucePlugin_ARAContentTypes=0;JucePlugin_ARATransformationFlags=0;JucePlugin_ARAFactoryID=\"com.yourcompany.SpectralNoise.factory\";JucePlugin_ARADocumentArchiveID=\"com.yourcompany.SpectralNoise.aradocumentarchive.1.0.0\";JucePlugin_ARACompatibleArchiveIDs=\"\";JUCE_STANDALONE_APPLICATION=JucePlugin_Build_Standalone;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=1.0.0;JUCE_APP_VERSION_HEX=0x10000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
       <OutputFile>$(OutDir)\SpectralNoise.dll</OutputFile>
@@ -206,31 +201,31 @@ echo : Info: VST3 manifest generation is disabled for SpectralNoise because a AM
       <AdditionalDependencies>SpectralNoise.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <PreBuildEvent>
-      <Command>if &quot;$(PROCESSOR_ARCHITECTURE)&quot; == &quot;x86&quot; if defined PROCESSOR_ARCHITEW6432 (
-    echo : Warning: Toolchain configuration issue! You are using a 32-bit toolchain to compile a 64-bit target on a 64-bit system. This may cause problems with the build system. To resolve this, use the x64 version of MSBuild. You can invoke it directly at: &quot;&lt;VisualStudioPathHere&gt;/MSBuild/Current/Bin/amd64/MSBuild.exe&quot; Or, use the &quot;x64 Native Tools Command Prompt&quot; script.
+      <Command>if "$(PROCESSOR_ARCHITECTURE)" == "x86" if defined PROCESSOR_ARCHITEW6432 (
+    echo : Warning: Toolchain configuration issue! You are using a 32-bit toolchain to compile a 64-bit target on a 64-bit system. This may cause problems with the build system. To resolve this, use the x64 version of MSBuild. You can invoke it directly at: "&lt;VisualStudioPathHere&gt;/MSBuild/Current/Bin/amd64/MSBuild.exe" Or, use the "x64 Native Tools Command Prompt" script.
 )
-if not exist &quot;$(OutDir)\\SpectralNoise.vst3\&quot; (
-    del /s /q &quot;$(OutDir)\\SpectralNoise.vst3&quot;
-    mkdir &quot;$(OutDir)\\SpectralNoise.vst3&quot;
+if not exist "$(OutDir)\\SpectralNoise.vst3\" (
+    del /s /q "$(OutDir)\\SpectralNoise.vst3"
+    mkdir "$(OutDir)\\SpectralNoise.vst3"
 )
-if not exist &quot;$(OutDir)\\SpectralNoise.vst3\Contents\&quot; (
-    del /s /q &quot;$(OutDir)\\SpectralNoise.vst3\Contents&quot;
-    mkdir &quot;$(OutDir)\\SpectralNoise.vst3\Contents&quot;
+if not exist "$(OutDir)\\SpectralNoise.vst3\Contents\" (
+    del /s /q "$(OutDir)\\SpectralNoise.vst3\Contents"
+    mkdir "$(OutDir)\\SpectralNoise.vst3\Contents"
 )
-if not exist &quot;$(OutDir)\\SpectralNoise.vst3\Contents\x86_64-win\&quot; (
-    del /s /q &quot;$(OutDir)\\SpectralNoise.vst3\Contents\x86_64-win&quot;
-    mkdir &quot;$(OutDir)\\SpectralNoise.vst3\Contents\x86_64-win&quot;
+if not exist "$(OutDir)\\SpectralNoise.vst3\Contents\x86_64-win\" (
+    del /s /q "$(OutDir)\\SpectralNoise.vst3\Contents\x86_64-win"
+    mkdir "$(OutDir)\\SpectralNoise.vst3\Contents\x86_64-win"
 )
 </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy /Y &quot;$(OutDir)\SpectralNoise.dll&quot; &quot;$(OutDir)\SpectralNoise.vst3\Contents\x86_64-win\SpectralNoise.vst3&quot;
+      <Command>copy /Y "$(OutDir)\SpectralNoise.dll" "$(OutDir)\SpectralNoise.vst3\Contents\x86_64-win\SpectralNoise.vst3"
 set manifest_generated=0
-if &quot;$(PROCESSOR_ARCHITECTURE)&quot; == &quot;ARM64&quot; if &quot;$(Platform)&quot; == &quot;x64&quot; (
+if "$(PROCESSOR_ARCHITECTURE)" == "ARM64" if "$(Platform)" == "x64" (
     call :_generate_manifest
     set manifest_generated=1
 )
-if &quot;$(PROCESSOR_ARCHITECTURE)&quot; == &quot;AMD64&quot; if &quot;$(Platform)&quot; == &quot;x64&quot; (
+if "$(PROCESSOR_ARCHITECTURE)" == "AMD64" if "$(Platform)" == "x64" (
     call :_generate_manifest
     set manifest_generated=1
 )
@@ -239,13 +234,13 @@ if %manifest_generated% equ 0 (
 )
 goto :_continue
 :_generate_manifest
-if exist &quot;$(OutDir)/SpectralNoise.vst3\Contents\Resources\moduleinfo.json&quot; (
-    del /s /q &quot;$(OutDir)/SpectralNoise.vst3\Contents\Resources\moduleinfo.json&quot;
+if exist "$(OutDir)/SpectralNoise.vst3\Contents\Resources\moduleinfo.json" (
+    del /s /q "$(OutDir)/SpectralNoise.vst3\Contents\Resources\moduleinfo.json"
 )
-if not exist &quot;$(OutDir)/SpectralNoise.vst3\Contents\Resources\&quot; (
-    mkdir &quot;$(OutDir)/SpectralNoise.vst3\Contents\Resources\&quot;
+if not exist "$(OutDir)/SpectralNoise.vst3\Contents\Resources\" (
+    mkdir "$(OutDir)/SpectralNoise.vst3\Contents\Resources\"
 )
-&quot;$(SolutionDir)$(Platform)\$(Configuration)\VST3 Manifest Helper\juce_vst3_helper.exe&quot; -create -version &quot;1.0.0&quot; -path &quot;$(OutDir)/SpectralNoise.vst3&quot; -output &quot;$(OutDir)/SpectralNoise.vst3\Contents\Resources\moduleinfo.json&quot;
+"$(SolutionDir)$(Platform)\$(Configuration)\VST3 Manifest Helper\juce_vst3_helper.exe" -create -version "1.0.0" -path "$(OutDir)/SpectralNoise.vst3" -output "$(OutDir)/SpectralNoise.vst3\Contents\Resources\moduleinfo.json"
 if %ERRORLEVEL% equ 0 (
     echo : Info: Successfully generated a manifest for SpectralNoise
     goto :_continue
@@ -266,11 +261,15 @@ echo : Info: VST3 manifest generation is disabled for SpectralNoise because a AM
     <ClCompile Include="..\..\..\..\Program Files\JUCE\modules\juce_audio_plugin_client\juce_audio_plugin_client_VST3.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_plugin_client_VST3.cpp"/>
+    <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_plugin_client_VST3.cpp" />
   </ItemGroup>
-  <ItemGroup/>
   <ItemGroup>
-    <ResourceCompile Include=".\resources.rc"/>
+    <ProjectReference Include="..\..\Source\fftw-3.3\fftw-3.3-libs\libfftwf-3.3\libfftwf-3.3.vcxproj">
+      <Project>{2482251c-2f99-4779-b61d-b091852b4a36}</Project>
+    </ProjectReference>
   </ItemGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+  <ItemGroup>
+    <ResourceCompile Include=".\resources.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
