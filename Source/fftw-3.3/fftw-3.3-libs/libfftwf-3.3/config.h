@@ -80,7 +80,7 @@
 #undef HAVE_ALTIVEC_H
 
 /* Define to enable AVX optimizations. */
-#undef HAVE_AVX2 0
+#undef HAVE_AVX2
 
 /* Define to 1 if you have the `BSDgettimeofday' function. */
 #undef HAVE_BSDGETTIMEOFDAY

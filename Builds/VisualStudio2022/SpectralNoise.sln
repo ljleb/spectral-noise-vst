@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio Version 17
+
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpectralNoise - Standalone Plugin", "SpectralNoise_StandalonePlugin.vcxproj", "{F0D19DCE-D96B-9904-9764-D8442122179E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{12B5FE4A-9673-BBE6-EBC4-BCAF087B8D5F} = {12B5FE4A-9673-BBE6-EBC4-BCAF087B8D5F}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpectralNoise - VST3", "SpectralNoise_VST3.vcxproj", "{A9A2CB24-E42E-24AC-21BC-7F046913C769}"
+	ProjectSection(ProjectDependencies) = postProject
+		{12B5FE4A-9673-BBE6-EBC4-BCAF087B8D5F} = {12B5FE4A-9673-BBE6-EBC4-BCAF087B8D5F}
+		{F128773C-2AD6-4488-4B4B-17ADD05658C8} = {F128773C-2AD6-4488-4B4B-17ADD05658C8}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpectralNoise - Shared Code", "SpectralNoise_SharedCode.vcxproj", "{12B5FE4A-9673-BBE6-EBC4-BCAF087B8D5F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpectralNoise - VST3 Manifest Helper", "SpectralNoise_VST3ManifestHelper.vcxproj", "{F128773C-2AD6-4488-4B4B-17ADD05658C8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9A2CB24-E42E-24AC-21BC-7F046913C769}.Debug|x64.ActiveCfg = Debug|x64
+		{A9A2CB24-E42E-24AC-21BC-7F046913C769}.Debug|x64.Build.0 = Debug|x64
+		{A9A2CB24-E42E-24AC-21BC-7F046913C769}.Release|x64.ActiveCfg = Release|x64
+		{A9A2CB24-E42E-24AC-21BC-7F046913C769}.Release|x64.Build.0 = Release|x64
+		{F0D19DCE-D96B-9904-9764-D8442122179E}.Debug|x64.ActiveCfg = Debug|x64
+		{F0D19DCE-D96B-9904-9764-D8442122179E}.Debug|x64.Build.0 = Debug|x64
+		{F0D19DCE-D96B-9904-9764-D8442122179E}.Release|x64.ActiveCfg = Release|x64
+		{F0D19DCE-D96B-9904-9764-D8442122179E}.Release|x64.Build.0 = Release|x64
+		{12B5FE4A-9673-BBE6-EBC4-BCAF087B8D5F}.Debug|x64.ActiveCfg = Debug|x64
+		{12B5FE4A-9673-BBE6-EBC4-BCAF087B8D5F}.Debug|x64.Build.0 = Debug|x64
+		{12B5FE4A-9673-BBE6-EBC4-BCAF087B8D5F}.Release|x64.ActiveCfg = Release|x64
+		{12B5FE4A-9673-BBE6-EBC4-BCAF087B8D5F}.Release|x64.Build.0 = Release|x64
+		{F128773C-2AD6-4488-4B4B-17ADD05658C8}.Debug|x64.ActiveCfg = Debug|x64
+		{F128773C-2AD6-4488-4B4B-17ADD05658C8}.Debug|x64.Build.0 = Debug|x64
+		{F128773C-2AD6-4488-4B4B-17ADD05658C8}.Release|x64.ActiveCfg = Release|x64
+		{F128773C-2AD6-4488-4B4B-17ADD05658C8}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
