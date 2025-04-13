@@ -2,3 +2,4 @@ Builds/
 JuceLibraryCode/
 *Debug/
 *Release/
+.vs/
