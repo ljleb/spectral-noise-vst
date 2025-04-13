@@ -1,11 +1,11 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "SpectralNoiseSampler.h"
 
 class SpectralNoiseAudioProcessor  : public juce::AudioProcessor, public juce::AudioProcessorParameter::Listener {
-    std::vector<float> _buffer;
-    size_t _buffer_index;
-    size_t _buffer_size;
+    std::array<SpectralNoiseSampler, 2> _noise_samplers;
+    std::vector<size_t> _notes_counts;
 
     juce::AudioProcessorValueTreeState _value_tree_state;
     std::atomic<float>* _tilt;
@@ -18,7 +18,6 @@ public:
 
     void prepareToPlay(double, int) override;
     void releaseResources() override;
-    size_t find_most_natural_subwindow(size_t width);
 
    #ifndef JucePlugin_PreferredChannelConfigurations
     bool isBusesLayoutSupported(const BusesLayout&) const override;

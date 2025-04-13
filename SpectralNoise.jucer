@@ -3,7 +3,7 @@
 <JUCERPROJECT id="j1dcGc" name="SpectralNoise" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
-              pluginAUMainType="'augn'">
+              pluginAUMainType="'augn'" pluginManufacturer="abstrack">
   <MAINGROUP id="N0aE6E" name="SpectralNoise">
     <GROUP id="{EC87015C-B06B-789D-3CD5-A5355B0A5645}" name="Source">
       <FILE id="rqrMuT" name="PluginProcessor.cpp" compile="1" resource="0"
